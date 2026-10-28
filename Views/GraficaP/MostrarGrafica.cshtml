@@ -1,0 +1,54 @@
+﻿@model List<ProcedimientoViewModel>
+
+@{
+    ViewData["Title"] = "Mostrar Gráfica";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <canvas id="chartCanvas" width="100" height="50"></canvas>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var data = @Html.Raw(Json.Serialize(Model));
+
+        console.log("Data:", data);
+
+        var nombres = data.map(d => d.nombre); // Cambiado de d.Nombre a d.nombre
+        var cantidades = data.map(d => d.cantidad); // Cambiado de d.Cantidad a d.cantidad
+
+        console.log("Nombres:", nombres);
+        console.log("Cantidades:", cantidades);
+
+        if (nombres.length > 0) {
+            console.log("Primer Nombre:", nombres[0]);
+            console.log("Primera Cantidad:", cantidades[0]);
+        }
+
+        var ctx = document.getElementById('chartCanvas').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: nombres,
+                datasets: [{
+                    label: 'Cantidad de Procedimientos',
+                    data: cantidades,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

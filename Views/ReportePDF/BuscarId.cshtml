@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Ingresar ID de Mascota";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Reporte Historia clinica</h1>
+
+<form asp-action="GenerateReport" method="post">
+    <div class="form-group">
+        <label for="mascotaNiup">ingrese el Niup de la Mascota:</label>
+        <input style="width: 200px; type="number" class="form-control" id="mascotaNiup" name="mascotaNiup" required />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Generar Reporte</button>
+</form>
